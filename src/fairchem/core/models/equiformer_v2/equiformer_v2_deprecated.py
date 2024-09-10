@@ -6,6 +6,7 @@ import math
 
 import torch
 import torch.nn as nn
+from typing_extensions import deprecated
 
 from fairchem.core.common import gp_utils
 from fairchem.core.common.registry import registry
@@ -15,7 +16,6 @@ from fairchem.core.models.scn.smearing import GaussianSmearing
 
 with contextlib.suppress(ImportError):
     pass
-
 
 
 from .edge_rot_mat import init_edge_rot_mat
@@ -48,11 +48,12 @@ _AVG_NUM_NODES = 77.81317
 _AVG_DEGREE = 23.395238876342773  # IS2RE: 100k, max_radius = 5, max_neighbors = 100
 
 
+@deprecated(
+    "EquiformerV2 has been deprecated, please use a Hydra model with EquiformerV2Backbone instead"
+)
 @registry.register_model("equiformer_v2")
 class EquiformerV2(nn.Module, GraphModelMixin):
     """
-    THIS CLASS HAS BEEN DEPRECATED! Please use "EquiformerV2BackboneAndHeads"
-
     Equiformer with graph attention built upon SO(2) convolution and feedforward network built upon S2 activation
 
     Args:
@@ -154,9 +155,6 @@ class EquiformerV2(nn.Module, GraphModelMixin):
         use_energy_lin_ref: bool | None = False,
         load_energy_lin_ref: bool | None = False,
     ):
-        logging.warning(
-            "equiformer_v2 (EquiformerV2) class is deprecaed in favor of equiformer_v2_backbone_and_heads  (EquiformerV2BackboneAndHeads)"
-        )
         if mmax_list is None:
             mmax_list = [2]
         if lmax_list is None:
