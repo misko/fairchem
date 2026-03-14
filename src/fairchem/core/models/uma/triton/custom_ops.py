@@ -203,7 +203,8 @@ def _kernel_node_to_edge_wigner_permute_bwd_dw(
         x.stride(0),
         x.stride(1),
         edge_index.stride(0),
-        C=sphere_channels,
+        BLOCK_C=128,
+        NUM_C_BLOCKS=(sphere_channels + 127) // 128,
         GRID_E_STRIDE=GRID_E_STRIDE,
         num_warps=1,
     )
