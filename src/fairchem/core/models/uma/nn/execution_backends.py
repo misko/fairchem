@@ -413,10 +413,13 @@ class UMASFastGPUBackend(UMASFastPytorchBackend):
 
         x_edge_embedding = x_edge_embedding.to(x.dtype)
 
+        # Fuse division into index_add by using mul instead of div
+        # (avoids creating a [E,9,C] intermediate for the division result)
         return x.index_add(
             0,
             edge_index[1] - node_offset,
-            x_edge_embedding / rescale_factor,
+            x_edge_embedding,
+            alpha=1.0 / rescale_factor,
         )
 
 
