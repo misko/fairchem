@@ -1,0 +1,4 @@
+commit	md_qps	static_qps	memory_gb	forces_pass	status	description
+c45dbcd	5.18	0.0	21.4	yes	keep	baseline (main, buggy bwd_dw kernel)
+658e3a5	5.23	0.0	21.4	yes	keep	fix: tl.arange(0,128)->tl.arange(0,C) in permute_wigner_inv bwd_dw
+2b5162a	5.23	0.0	21.4	yes	keep	tighten force tolerances 5e-2->2e-3, add C=512 kernel test coverage
